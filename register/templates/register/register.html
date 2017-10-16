@@ -1,0 +1,13 @@
+{% extends "base.html" %} {# ① #}
+
+{% block content %}
+
+<h1>登録画面</h1>
+
+<form class="my-form" action="{% url 'register:register_save' %}" method="POST">
+  {{ user_form.as_p }}
+<input type="submit" class="btn btn-default" value="登録">
+{% csrf_token %}
+</form>
+
+{% endblock %}

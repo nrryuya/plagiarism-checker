@@ -1,0 +1,15 @@
+{% extends "base.html" %} {# ① #}
+
+{% block content %}
+
+ようこそ{{ user.username }}さん
+<a href="{% url 'register:profile' %}">プロフィールトップに戻る</a>
+<hr>
+
+<form method="POST" action="{% url 'register:plan' %}">
+  プラン: {{profile_form.plan}}<br>
+  {% csrf_token %}
+  <input type="submit">
+</form>
+
+{% endblock %}

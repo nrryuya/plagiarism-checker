@@ -1,0 +1,58 @@
+{% extends "result_base.html" %}
+
+
+{% block title %}検証ページ一覧{% endblock title %}
+
+{% block extrahead %}
+<style>
+table {
+  margin-top: 8px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+    <h3 class="page-header">
+        <ul class="breadcrumb">
+        　<li><a href="" data-lb-orig-href="https://bootswatch.com/spacelab/#">{{ article.title }}の類似ページ一覧</a></li>
+        </ul>
+    </h3>
+
+  <div class="col-lg-12">
+    <p class="text-center">
+      <a href="{% url 'result:site_list' %}" class="btn btn-primary" data-lb-orig-href="https://bootswatch.com/spacelab/#">null</a>
+    </p>
+    <table class="table table-striped table-hover ">
+      <thead>
+        <tr class="info">
+          <th>ページタイトル</th>
+          <th>URL</th>
+          <th>追加日</th>
+          <th>類似度</th>
+          <th>被覆度</th>
+          <th>最終チェック日</th>
+          <th>確認状況</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for candidate in candidates %}
+        <tr>
+          <td>
+              <a href="{% url 'result:result' site_id=site.id article_id=article.id candidate_id=candidate.id %}">{{ candidate.title }}</a>
+          </td>
+          <td>{{ candidate.url }}</td>
+          <td>{{ candidate.created_at }}</td>
+          <td>{{ candidate.doc_sim }}</td>
+          <td>{{ candidate.cover }}</td>
+          <td>{{ candidate.judged_at }}</td>
+          <td>
+            <a href="{% url 'result:mark_confirmed' site_id=site.id article_id=article.id candidate_id=candidate.id %}" class="btn btn-primary btn-sm" data-lb-orig-href="https://bootswatch.com/spacelab/#">未確認{{ candidate.confirmed }}</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+
+{% endblock content %}

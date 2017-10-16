@@ -1,0 +1,31 @@
+{% extends "base.html" %} {# ① #}
+
+{% block content %}
+
+{% if changed %}
+  プロフィールが変更されました<br>
+{% endif %}
+ようこそ{{ user.username }}さん<hr>
+
+現在のプラン: {{user.profile.plan}}<br>
+<a href="{% url 'register:plan' %}">プランを変更する</a>
+{% for site in sites %}
+    <hr>
+    保護対象サイト: {{site.name}}<br>
+    対象URL: {{site.url}}<br>
+    <a href="{% url 'register:edit' site_id=site.id %}">保護対象サイトを変更する</a><hr>
+{% endfor %}
+
+<a href="{% url 'register:add' %}">保護対象サイトを追加する</a>
+
+
+<!--
+<form method="POST" action="{% url 'register:profile_save' %}">
+  プラン: {{profile_form.plan}}<br>
+  サイト名: {{url_form.name}}<br>
+  対象URL: {{url_form.url}}<br>
+  {% csrf_token %}
+  <input type="submit">
+</form>-->
+
+{% endblock %}

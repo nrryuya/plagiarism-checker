@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+
+{# ようこそ{{ user.username }}さん#}
+{# <a href="{% url 'register:profile' %}">プロフィールトップに戻る</a>#}
+{# <hr>#}
+
+{# <form method="POST" action="{% url 'register:add' %}">#}
+  {# サイト名: {{site_form.name}}<br>#}
+  {# 対象URL: {{site_form.url}}<br>#}
+  {# {% csrf_token %}#}
+  {# <input type="submit">#}
+{# </form>#}
+
+
+<h3 class="page-header">監視ページ情報の編集</h3>
+{% if article_id %}
+<form action="{% url 'register:article_edit' site_id=site_id article_id=article_id %}" method="post" class="form-horizontal" role="form">
+{% else %}
+<form action="{% url 'register:article_add' site_id=site_id %}" method="post" class="form-horizontal" role="form">
+{% endif %}
+  {% csrf_token %}
+  {{ article_form|bootstrap_horizontal }}
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">送信</button>
+    </div>
+  </div>
+</form>
+<a href="{% url 'result:article_list' site_id=site_id %}" class="btn btn-default btn-sm">戻る</a>
+
+
+
+
+{% endblock %}

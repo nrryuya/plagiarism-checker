@@ -1,0 +1,21 @@
+{% extends "admin/base.html" %} {# ① #}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+  <!--ログアウト状態-->
+  <a href="register">新規登録はこちら</a><br>
+  <a href="login">ログイン</a><br>
+{% else %}
+  <!--ログイン状態-->
+  <a href="logout">ログアウト</a><br>
+  こんにちは{{ name }}さん<br>
+  {% if hasurl %}
+    対象URL: {{ url }}<br>
+  {% else %}
+    対象URL: まだ設定してありません<br>
+  {% endif %}
+  <a href="profile">設定画面</a>
+{% endif %}
+
+{% endblock %}
